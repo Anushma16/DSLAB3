@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+
+// Function to print truth value as T or F
+char tf(bool val) {
+    return val ? 'T' : 'F';
+}
+
+// Function for implication
+bool implies(bool a, bool b) {
+    return !a || b;
+}
+
+// Function for biconditional
+bool biconditional(bool a, bool b) {
+    return a == b;
+}
+
+int main() {
+    bool p, q, r;
+
+    cout << "Truth Table for: (p ? ¬q ? r) ? (¬p ? r)\n";
+    cout << "p q r | (p?¬q?r) ? (¬p?r)\n";
+    cout << "----------------------------\n";
+    for (int i = 0; i < 8; i++) {
+        p = i & 4;
+        q = i & 2;
+        r = i & 1;
+
+        bool left = (p && !q) || r;
+        bool right = (!p) || r;
+        bool result = implies(left, right);
+
+        cout << tf(p) << " " << tf(q) << " " << tf(r) << " | " << tf(result) << endl;
+    }
+
+    cout << "\nTruth Table for: (p ? ¬q ? r) ? (¬p ? r)\n";
+    cout << "p q r | (p?¬q?r) ? (¬p?r)\n";
+    cout << "----------------------------\n";
+    for (int i = 0; i < 8; i++) {
+        p = i & 4;
+        q = i & 2;
+        r = i & 1;
+
+        bool left = (p && !q) || r;
+        bool right = (!p) || r;
+        bool result = biconditional(left, right);
+
+        cout << tf(p) << " " << tf(q) << " " << tf(r) << " | " << tf(result) << endl;
+    }
+
+    return 0;
+}
