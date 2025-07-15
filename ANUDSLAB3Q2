@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+// Function to print T or F
+char tf(bool val) {
+    return val ? 'T' : 'F';
+}
+
+// Function for implication
+bool implies(bool a, bool b) {
+    return !a || b;
+}
+
+int main() {
+    bool p, q;
+
+    cout << "Truth Table for:\n";
+    cout << "Premise 1: p ? q\n";
+    cout << "Premise 2: ¬q\n";
+    cout << "Conclusion: ¬p\n";
+    cout << "\n";
+    cout << "p q | p?q ¬q ¬p | Premises True? | Conclusion Valid?\n";
+    cout << "------------------------------------------------------\n";
+
+    for (int i = 0; i < 4; ++i) {
+        p = i & 2; // bit 2
+        q = i & 1; // bit 1
+
+        bool premise1 = implies(p, q);
+        bool not_q = !q;
+        bool not_p = !p;
+
+        bool premises_true = premise1 && not_q;
+
+        cout << tf(p) << " " << tf(q) << " | ";
+        cout << tf(premise1) << " " << tf(not_q) << " " << tf(not_p) << " | ";
+
+        if (premises_true) {
+            cout << " Yes | " << (not_p ? "Yes ?" : "No ?") << "\n";
+        } else {
+            cout << " No | —\n";
+        }
+    }
+
+    return 0;
+}
