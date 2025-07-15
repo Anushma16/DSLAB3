@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+// Print T or F
+char tf(bool val) {
+    return val ? 'T' : 'F';
+}
+
+// Implication
+bool implies(bool a, bool b) {
+    return !a || b;
+}
+
+int main() {
+    bool M, J, S;
+
+    cout << "Testing Validity of Argument (Hypothetical Syllogism):\n";
+    cout << "Premises:\n";
+    cout << "1. M ? J\n";
+    cout << "2. J ? S\n";
+    cout << "Conclusion: M ? S\n\n";
+
+    cout << "M J S | M?J J?S M?S | Premises True? | Conclusion Valid?\n";
+    cout << "-----------------------------------------------------------\n";
+
+    for (int i = 0; i < 8; ++i) {
+        M = i & 4;
+        J = i & 2;
+        S = i & 1;
+
+        bool premise1 = implies(M, J);
+        bool premise2 = implies(J, S);
+        bool conclusion = implies(M, S);
+
+        bool premises_true = premise1 && premise2;
+
+        cout << tf(M) << " " << tf(J) << " " << tf(S) << " | ";
+        cout << tf(premise1) << " " << tf(premise2) << " " << tf(conclusion) << " | ";
+
+        if (premises_true) {
+            cout << "Yes | " << (conclusion ? "Yes ?" : "No ?") << "\n";
+        } else {
+            cout << " No | —\n";
+        }
+    }
+
+    return 0;
+}
