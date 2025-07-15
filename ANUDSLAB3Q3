@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+
+// Function to print T or F
+char tf(bool val) {
+    return val ? 'T' : 'F';
+}
+
+// Implication function
+bool implies(bool a, bool b) {
+    return !a || b;
+}
+
+int main() {
+    bool G, Y, L;
+
+    cout << "Truth Table for Argument Validity:\n";
+    cout << "Premises:\n";
+    cout << "1. G ? Y\n";
+    cout << "2. (G ? Y) ? L\n";
+    cout << "3. Y ? ¬L\n";
+    cout << "Conclusion: ¬G\n\n";
+
+    cout << "G Y L | G?Y (G?Y)?L Y?¬L ¬G | Premises True? | Conclusion Valid?\n";
+    cout << "-------------------------------------------------------------------\n";
+
+    for (int i = 0; i < 8; ++i) {
+        G = i & 4; // bit 3
+        Y = i & 2; // bit 2
+        L = i & 1; // bit 1
+
+        bool premise1 = G || Y;
+        bool premise2 = implies(G && Y, L);
+        bool premise3 = Y && !L;
+        bool conclusion = !G;
+
+        bool all_premises_true = premise1 && premise2 && premise3;
+
+        cout << tf(G) << " " << tf(Y) << " " << tf(L) << " | ";
+        cout << tf(premise1) << " ";
+        cout << tf(premise2) << " ";
+        cout << tf(premise3) << " ";
+        cout << tf(conclusion) << " | ";
+
+        if (all_premises_true) {
+            cout << "Yes | " << (conclusion ? "Yes ?" : "No ?") << "\n";
+        } else {
+            cout << " No | —\n";
+        }
+    }
+
+    return 0;
+}
